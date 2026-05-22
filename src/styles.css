@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Rubik", system-ui, sans-serif;
+  --font-display: "Archivo Black", "Inter", system-ui, sans-serif;
+  --color-autolec-green: #3b7253;
+  --color-autolec-red: #723b3b;
+  --color-autolec-blue: #3b4a72;
+  --color-ink: #151816;
+  --color-soil: #2d302b;
+  --color-field: #f3f5ef;
+  --color-mist: #eef1f2;
+}
+
+:root {
+  color: #151816;
+  background: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+}
+
+.industrial-grid {
+  background-image:
+    linear-gradient(rgba(21, 24, 22, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 24, 22, 0.05) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.clip-angle {
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 0 100%);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
