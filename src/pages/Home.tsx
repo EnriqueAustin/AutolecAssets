@@ -1,41 +1,47 @@
-import { ArrowRight, CheckCircle2, Factory, Gauge, Wrench } from "lucide-react";
+import { ArrowRight, CheckCircle2, Factory, Gauge, HardHat, Leaf, Truck, Wheat, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Accordion } from "../components/Accordion";
+import { ContactForm } from "../components/ContactForm";
 import { ImageCard } from "../components/ImageCard";
+import { Reveal } from "../components/Reveal";
 import { SectionHeading } from "../components/SectionHeading";
 import { Button } from "../components/ui/Button";
-import { contact, faqs, images, services, stats } from "../data/site";
+import { contact, faqs, images, industries, services, stats, testimonials } from "../data/site";
+
+const industryIcons = { wheat: Wheat, grain: Truck, citrus: Leaf, construction: HardHat };
 
 export function Home() {
   return (
     <>
+      {/* Hero */}
       <section className="clip-angle relative min-h-[720px] overflow-hidden bg-ink text-white">
         <img src={images.hero} alt="Autolec agricultural machine in the field" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/75 to-ink/20" />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-32 pt-20 md:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <p className="mb-5 inline-flex rounded-md bg-autolec-green px-4 py-2 text-sm font-extrabold uppercase tracking-normal">
+            <p className="animate-fade-in-down mb-5 inline-flex rounded-md bg-autolec-green px-4 py-2 text-sm font-extrabold uppercase tracking-normal">
               We strive for excellence
             </p>
-            <h1 className="font-display text-5xl leading-none text-balance md:text-7xl">
+            <h1 className="animate-fade-in-up font-display text-5xl leading-none text-balance md:text-7xl">
               Agricultural machinery built, repaired and maintained for hard working sites.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-white/80">
+            <p className="animate-fade-in-up delay-200 mt-7 max-w-2xl text-lg leading-8 text-white/80">
               Autolec Assets repairs and maintains agricultural vehicles, machines, facilities and equipment, and manufactures improved baggers and de-baggers from real field experience.
             </p>
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="animate-fade-in-up delay-400 mt-9 flex flex-wrap gap-3">
               <Button asChild>
                 <Link to="/machines">Explore Machines <ArrowRight size={18} /></Link>
               </Button>
               <Button asChild variant="outline">
-                <a href={`mailto:${contact.email}`}>Request Support</a>
+                <Link to="/contact">Request a Quote</Link>
               </Button>
             </div>
           </div>
-          <div className="hidden rounded-md border border-white/20 bg-white/10 p-5 backdrop-blur lg:block">
-            <img src={images.logo} alt="Autolec Assets logo" className="mx-auto h-44 w-44 object-contain" />
+          <div className="animate-slide-in-right delay-300 rounded-md border border-white/20 bg-white/10 p-5 backdrop-blur">
+            <img src={images.logo} alt="Autolec Assets logo" className="mx-auto h-32 w-32 object-contain lg:h-44 lg:w-44" />
             <div className="mt-5 grid grid-cols-2 gap-3">
-              {stats.map((stat) => (
-                <div key={stat.label} className="rounded-md bg-white p-4 text-ink">
+              {stats.map((stat, i) => (
+                <div key={stat.label} className="animate-scale-in rounded-md bg-white p-4 text-ink" style={{ animationDelay: `${400 + i * 100}ms` }}>
                   <p className="font-display text-2xl">{stat.value}</p>
                   <p className="mt-1 text-xs font-bold uppercase tracking-normal text-soil/60">{stat.label}</p>
                 </div>
@@ -45,83 +51,203 @@ export function Home() {
         </div>
       </section>
 
+      {/* About */}
       <section className="bg-white py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 md:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
-          <SectionHeading
-            eyebrow="About us"
-            title="Field experience turned into practical machine innovation."
-            copy="AAA Autolec was originally established on 26 February 1994. Today, that repair and project experience supports mechanical, auto-electrical, boilermaking, manufacturing, rebuilding and site maintenance work."
-          />
+          <Reveal>
+            <SectionHeading
+              eyebrow="About us"
+              title="Field experience turned into practical machine innovation."
+              copy="AAA Autolec was originally established on 26 February 1994. Today, that repair and project experience supports mechanical, auto-electrical, boilermaking, manufacturing, rebuilding and site maintenance work."
+            />
+          </Reveal>
           <div className="grid gap-4 sm:grid-cols-3">
             {[
               ["Mastery", "Diesel mechanic and auto-electrician expertise."],
               ["Dedication", "Repair, rebuild and maintain equipment used in tough agricultural environments."],
               ["Innovation", "Improved machine designs shaped by servicing real equipment."],
-            ].map(([title, copy]) => (
-              <div key={title} className="rounded-md border border-ink/10 p-5">
-                <CheckCircle2 className="mb-4 text-autolec-green" />
-                <h3 className="font-display text-xl">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-soil/70">{copy}</p>
-              </div>
+            ].map(([title, copy], i) => (
+              <Reveal key={title} delay={i * 150}>
+                <div className="rounded-md border border-ink/10 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5">
+                  <CheckCircle2 className="mb-4 text-autolec-green" />
+                  <h3 className="font-display text-xl">{title}</h3>
+                  <p className="mt-3 text-sm leading-6 text-soil/70">{copy}</p>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Services */}
       <section className="bg-field py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading
-              eyebrow="Our service solutions"
-              title="A practical one-stop partner for agricultural machinery work."
-            />
-            <Button asChild variant="secondary">
-              <Link to="/what-we-offer">What We Offer</Link>
-            </Button>
+            <Reveal>
+              <SectionHeading
+                eyebrow="Our service solutions"
+                title="A practical one-stop partner for agricultural machinery work."
+              />
+            </Reveal>
+            <Reveal delay={200}>
+              <Button asChild>
+                <Link to="/what-we-offer">What We Offer</Link>
+              </Button>
+            </Reveal>
           </div>
           <div className="grid gap-5 md:grid-cols-3">
-            {services.map((service) => (
-              <ImageCard key={service.title} title={service.title} copy={service.copy} image={service.image} to="/what-we-offer" tone={service.tone} />
+            {services.map((service, i) => (
+              <Reveal key={service.title} delay={i * 150} className="h-full [&>a]:h-full">
+                <ImageCard title={service.title} copy={service.copy} image={service.image} to="/what-we-offer" tone={service.tone} />
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Industries Served */}
       <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <Reveal>
+            <SectionHeading
+              align="center"
+              eyebrow="Industries we serve"
+              title="Trusted across South Africa's agricultural and construction sectors."
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {industries.map((ind, i) => {
+              const Icon = industryIcons[ind.icon];
+              return (
+                <Reveal key={ind.title} delay={i * 120}>
+                  <div className="rounded-md border border-ink/10 p-6 text-center transition-all duration-300 hover:-translate-y-1 hover:border-autolec-green/30 hover:shadow-lg hover:shadow-autolec-green/5">
+                    <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-autolec-green/10 transition-transform duration-300 hover:scale-110">
+                      <Icon className="text-autolec-green" size={28} />
+                    </div>
+                    <h3 className="font-display text-xl">{ind.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-soil/70">{ind.copy}</p>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Machines highlight */}
+      <section className="bg-field py-20">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 md:px-6 lg:grid-cols-2 lg:items-center">
           <div className="grid grid-cols-2 gap-4">
-            <img src={images.machines} alt="De-bagger machinery" className="h-80 w-full rounded-md object-cover" />
-            <img src={images.workshop} alt="Autolec workshop welding" className="mt-10 h-80 w-full rounded-md object-cover" />
+            <Reveal direction="left">
+              <img src={images.machines} alt="De-bagger machinery" className="h-80 w-full rounded-md object-cover" />
+            </Reveal>
+            <Reveal direction="left" delay={200}>
+              <img src={images.workshop} alt="Autolec workshop welding" className="mt-10 h-80 w-full rounded-md object-cover" />
+            </Reveal>
           </div>
           <div>
-            <SectionHeading
-              eyebrow="Our machines"
-              title="Baggers and de-baggers designed for high throughput and simpler maintenance."
-              copy="Autolec machines are designed around real operator needs: standard tractor compatibility, accessible components, metric parts and robust site performance."
-            />
+            <Reveal direction="right">
+              <SectionHeading
+                eyebrow="Our machines"
+                title="Baggers and de-baggers designed for high throughput and simpler maintenance."
+                copy="Autolec machines are designed around real operator needs: standard tractor compatibility, accessible components, metric parts and robust site performance."
+              />
+            </Reveal>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-md bg-autolec-green p-5 text-white"><Gauge /><p className="mt-4 font-bold">150-200t/h loading capacity</p></div>
-              <div className="rounded-md bg-autolec-red p-5 text-white"><Factory /><p className="mt-4 font-bold">Manufacturing and rebuilding</p></div>
-              <div className="rounded-md bg-autolec-blue p-5 text-white"><Wrench /><p className="mt-4 font-bold">Mechanical and electrical support</p></div>
+              {[
+                { bg: "bg-autolec-green", icon: <Gauge />, text: "150-200t/h loading capacity" },
+                { bg: "bg-autolec-red", icon: <Factory />, text: "Manufacturing and rebuilding" },
+                { bg: "bg-autolec-blue", icon: <Wrench />, text: "Mechanical and electrical support" },
+              ].map((item, i) => (
+                <Reveal key={item.text} delay={300 + i * 120}>
+                  <div className={`${item.bg} rounded-md p-5 text-white transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg`}>
+                    {item.icon}<p className="mt-4 font-bold">{item.text}</p>
+                  </div>
+                </Reveal>
+              ))}
             </div>
-            <Button asChild className="mt-8">
-              <Link to="/machines">View Machine Details</Link>
-            </Button>
+            <Reveal delay={600}>
+              <Button asChild className="mt-8">
+                <Link to="/machines">View Machine Details</Link>
+              </Button>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <section className="bg-mist py-20">
+      {/* Testimonials */}
+      <section className="bg-ink py-20 text-white">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <SectionHeading align="center" eyebrow="Frequently asked questions" title="Quick answers before you call." />
-          <div className="mt-10 grid gap-4 md:grid-cols-2">
-            {faqs.map((faq) => (
-              <div key={faq.question} className="rounded-md bg-white p-6 shadow-sm shadow-ink/5">
-                <h3 className="font-bold text-ink">{faq.question}</h3>
-                <p className="mt-3 text-sm leading-7 text-soil/70">{faq.answer}</p>
-              </div>
+          <Reveal>
+            <SectionHeading
+              align="center"
+              eyebrow="What our clients say"
+              title="Trusted by farmers and operators across South Africa."
+              className="[&_h2]:text-white [&_p]:text-white/60"
+            />
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <Reveal key={t.author} delay={i * 150}>
+                <div className="rounded-md border border-white/10 bg-white/5 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="mb-4 h-8 w-8 text-autolec-green/60">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z" />
+                  </svg>
+                  <p className="text-sm leading-7 text-white/80">{t.quote}</p>
+                  <div className="mt-5 border-t border-white/10 pt-4">
+                    <p className="text-sm font-bold">{t.author}</p>
+                    <p className="text-xs text-white/50">{t.sector}</p>
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="bg-mist py-20">
+        <div className="mx-auto max-w-7xl px-4 md:px-6">
+          <Reveal>
+            <SectionHeading align="center" eyebrow="Frequently asked questions" title="Quick answers before you call." />
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="mx-auto mt-10 max-w-3xl">
+              <Accordion items={faqs} />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Contact form */}
+      <section className="bg-white py-20">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 md:px-6 lg:grid-cols-[1fr_1.2fr] lg:items-start">
+          <Reveal direction="left">
+            <div>
+              <SectionHeading
+                eyebrow="Get in touch"
+                title="Ready to talk machinery?"
+                copy="Fill in the form and we'll get back to you, or contact us directly using the details below."
+              />
+              <div className="mt-8 grid gap-4 text-sm">
+                <a href={`tel:${contact.office.replace(/\D/g, "")}`} className="flex items-center gap-3 text-soil/70 transition-colors hover:text-autolec-green">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" /></svg></span>
+                  Office: {contact.office}
+                </a>
+                <a href={`mailto:${contact.email}`} className="flex items-center gap-3 text-soil/70 transition-colors hover:text-autolec-green">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 7l-10 7L2 7" /></svg></span>
+                  {contact.email}
+                </a>
+                <div className="flex items-center gap-3 text-soil/70">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" /><circle cx="12" cy="10" r="3" /></svg></span>
+                  {contact.address.join(", ")}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal direction="right" delay={200}>
+            <ContactForm />
+          </Reveal>
         </div>
       </section>
     </>

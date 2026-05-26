@@ -19,7 +19,7 @@ export function ImageCard({ title, copy, image, to, tone }: ImageCardProps) {
   return (
     <Link
       to={to}
-      className="group relative min-h-[360px] overflow-hidden rounded-md bg-ink text-white shadow-xl shadow-ink/10"
+      className="group relative block min-h-[360px] overflow-hidden rounded-md bg-ink text-white shadow-xl shadow-ink/10"
     >
       <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
       <div className={`absolute inset-0 bg-linear-to-t ${toneMap[tone]} via-ink/40 to-transparent`} />
