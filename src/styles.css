@@ -23,11 +23,17 @@
 
 html {
   scroll-behavior: smooth;
+  /* Reveal animations slide elements in horizontally (translate-x-8); clip the
+     transient off-screen overflow so it doesn't create a horizontal scrollbar.
+     `clip` (not `hidden`) avoids creating a scroll container, so the sticky
+     header and smooth scrolling keep working. */
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: clip;
 }
 
 @layer base {
