@@ -73,8 +73,8 @@ export function Home() {
               ["Dedication", "Repair, rebuild and maintain equipment used in tough agricultural environments."],
               ["Innovation", "Improved machine designs shaped by servicing real equipment."],
             ].map(([title, copy], i) => (
-              <Reveal key={title} delay={i * 150}>
-                <div className="rounded-md border border-ink/10 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5">
+              <Reveal key={title} delay={i * 150} className="h-full">
+                <div className="h-full rounded-md border border-ink/10 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5">
                   <CheckCircle2 className="mb-4 text-autolec-green" />
                   <h3 className="font-display text-xl">{title}</h3>
                   <p className="mt-3 text-sm leading-6 text-soil/70">{copy}</p>
