@@ -2,14 +2,20 @@ import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "../components/ContactForm";
 import { Reveal } from "../components/Reveal";
 import { SectionHeading } from "../components/SectionHeading";
+import { Seo } from "../components/Seo";
 import { contact } from "../data/site";
 
 export function Contact() {
   return (
     <>
+      <Seo
+        title="Contact Us"
+        description="Get in touch with Autolec Assets for a quote, a custom bagger or de-bagger build, or on-site repair and maintenance. Based at 53 November St, Middelburg, South Africa."
+        path="/contact"
+      />
       <section className="industrial-grid bg-field py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <p className="animate-fade-in-down mb-4 text-sm font-extrabold uppercase tracking-normal text-autolec-green">Contact us</p>
+          <p className="animate-fade-in-down mb-4 text-sm font-extrabold uppercase tracking-wide text-autolec-green">Contact us</p>
           <h1 className="animate-fade-in-up mb-5 max-w-4xl font-display text-4xl leading-tight text-ink md:text-6xl">
             Get in touch for a quote or to discuss your project.
           </h1>
@@ -54,7 +60,7 @@ export function Contact() {
                     <Reveal key={item.label} delay={i * 100}>
                       <Tag
                         {...(item.href ? { href: item.href } : {})}
-                        className="flex gap-4 text-soil/75 transition-colors hover:text-autolec-green"
+                        className="group flex gap-4 text-soil/75 transition-colors hover:text-autolec-green"
                       >
                         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-field transition-colors group-hover:bg-autolec-green/10">
                           {item.icon}
@@ -96,8 +102,16 @@ export function Contact() {
                   <p className="text-sm text-soil/60">{contact.address.join(", ")}</p>
                 </div>
               </div>
-              <span className="text-sm font-bold uppercase tracking-normal text-autolec-green opacity-0 transition-opacity duration-300 group-hover:opacity-100">Open Map &rarr;</span>
+              <span className="text-sm font-bold uppercase tracking-wide text-autolec-green opacity-0 transition-opacity duration-300 group-hover:opacity-100">Open Map &rarr;</span>
             </a>
+          </Reveal>
+          <Reveal delay={150}>
+            <iframe
+              className="mt-6 h-[420px] w-full rounded-md border-0 shadow-lg shadow-ink/5"
+              src="https://maps.google.com/maps?q=53+November+St,+Middelburg,+1050,+South+Africa&output=embed"
+              title="Autolec Assets location map"
+              loading="lazy"
+            />
           </Reveal>
         </div>
       </section>

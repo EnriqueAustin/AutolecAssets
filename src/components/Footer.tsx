@@ -9,7 +9,7 @@ export function Footer() {
       <div className="industrial-grid border-y border-white/10 bg-autolec-green/15">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 md:grid-cols-[1.2fr_0.8fr] md:items-center md:px-6">
           <div>
-            <p className="mb-3 text-sm font-extrabold uppercase tracking-normal text-white/70">Ready to talk machinery?</p>
+            <p className="mb-3 text-sm font-extrabold uppercase tracking-wide text-white/70">Ready to talk machinery?</p>
             <h2 className="font-display text-3xl leading-tight md:text-5xl">Get practical support from people who know the work.</h2>
           </div>
           <div className="flex flex-wrap gap-3 md:justify-end">
@@ -25,13 +25,13 @@ export function Footer() {
 
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-[1.2fr_0.8fr_0.8fr_1fr] md:px-6">
         <div>
-          <img src={images.logo} alt="Autolec Assets" className="mb-5 h-16 w-16 object-contain" />
+          <img src={images.logo} alt="Autolec Assets" loading="lazy" decoding="async" className="mb-5 h-16 w-16 object-contain" />
           <p className="max-w-sm text-sm leading-7 text-white/70">
             Autolec Assets specializes in agricultural machinery repair, maintenance and manufacturing, with a focus on practical field-tested equipment.
           </p>
           <div className="mt-5 flex gap-3">
             <a href={contact.facebook} target="_blank" rel="noreferrer" aria-label="Facebook" className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/70 transition hover:bg-autolec-green hover:text-white">
-              <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-4 w-4"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
             </a>
           </div>
         </div>
