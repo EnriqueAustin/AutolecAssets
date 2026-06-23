@@ -21,7 +21,7 @@ export function ImageCard({ title, copy, image, to, tone }: ImageCardProps) {
       to={to}
       className="group relative block min-h-[360px] overflow-hidden rounded-md bg-ink text-white shadow-xl shadow-ink/10"
     >
-      <img src={image} alt="" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+      <img src={image} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105" />
       <div className={`absolute inset-0 bg-linear-to-t ${toneMap[tone]} via-ink/40 to-transparent`} />
       <div className="absolute inset-x-0 bottom-0 p-6">
         <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-white text-ink transition group-hover:bg-ink group-hover:text-white">

@@ -1,16 +1,24 @@
 import { Reveal } from "../components/Reveal";
 import { SectionHeading } from "../components/SectionHeading";
+import { Seo } from "../components/Seo";
 import { SpecTable } from "../components/SpecTable";
 import { Button } from "../components/ui/Button";
-import { contact, gallery, machines } from "../data/site";
+import { contact, gallery, images, machines } from "../data/site";
 
 export function Machines() {
   return (
     <>
-      <section className="bg-ink px-4 py-20 text-white md:px-6">
-        <div className="mx-auto max-w-7xl">
-          <p className="animate-fade-in-down mb-4 text-sm font-extrabold uppercase tracking-normal text-white/60">Our machines</p>
-          <h1 className="animate-fade-in-up max-w-5xl font-display text-5xl leading-tight md:text-7xl">High-capacity agricultural bagging and de-bagging machines.</h1>
+      <Seo
+        title="Our Machines — Baggers & De-baggers"
+        description="High-capacity agricultural bagging and de-bagging machines, built for high throughput and simpler maintenance, with loading capacities of 150–200 tonnes per hour."
+        path="/machines"
+      />
+      <section className="relative overflow-hidden bg-ink px-4 py-20 text-white md:px-6">
+        <img src={images.bagger} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/85 to-ink/40" />
+        <div className="relative mx-auto max-w-7xl">
+          <p className="animate-fade-in-down mb-4 text-sm font-extrabold uppercase tracking-wide text-white/70">Our machines</p>
+          <h1 className="animate-fade-in-up max-w-5xl font-display text-4xl leading-tight sm:text-5xl md:text-7xl">High-capacity agricultural bagging and de-bagging machines.</h1>
         </div>
       </section>
 
@@ -22,6 +30,8 @@ export function Machines() {
                 <img
                   src={machine.image}
                   alt={machine.title}
+                  loading="lazy"
+                  decoding="async"
                   className={`h-full min-h-[420px] w-full rounded-md object-cover transition-transform duration-500 hover:scale-[1.02] ${index % 2 ? "lg:order-2" : ""}`}
                 />
                 <div className="p-2 md:p-4">
@@ -54,7 +64,7 @@ export function Machines() {
             {gallery.slice(0, 8).map((item, i) => (
               <Reveal key={item.title} delay={i * 80} as="figure">
                 <div className="overflow-hidden rounded-md bg-white/10 transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-lg">
-                  <img src={item.image} alt={item.title} className="h-56 w-full object-cover transition-transform duration-500 hover:scale-105" />
+                  <img src={item.image} alt={item.title} loading="lazy" decoding="async" className="h-56 w-full object-cover transition-transform duration-500 hover:scale-105" />
                   <p className="px-4 py-3 text-sm font-semibold text-white/80">{item.title}</p>
                 </div>
               </Reveal>

@@ -1,28 +1,34 @@
-import { ArrowRight, CheckCircle2, Factory, Gauge, HardHat, Leaf, Truck, Wheat, Wrench } from "lucide-react";
+import { ArrowRight, CheckCircle2, Factory, Gauge, HardHat, Leaf, Star, Warehouse, Wheat, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Accordion } from "../components/Accordion";
 import { ContactForm } from "../components/ContactForm";
 import { ImageCard } from "../components/ImageCard";
 import { Reveal } from "../components/Reveal";
 import { SectionHeading } from "../components/SectionHeading";
+import { Seo } from "../components/Seo";
 import { Button } from "../components/ui/Button";
-import { contact, faqs, images, industries, services, stats, testimonials } from "../data/site";
+import { contact, faqs, images, industries, reviews, services, stats } from "../data/site";
 
-const industryIcons = { wheat: Wheat, grain: Truck, citrus: Leaf, construction: HardHat };
+const industryIcons = { wheat: Wheat, grain: Warehouse, citrus: Leaf, construction: HardHat };
 
 export function Home() {
   return (
     <>
+      <Seo
+        title="Agricultural Machinery Repair, Maintenance & Manufacturing"
+        description="Autolec Assets manufactures, repairs and maintains agricultural machinery, vehicles and equipment in Middelburg, South Africa — including high-capacity baggers and de-baggers."
+        path="/"
+      />
       {/* Hero */}
       <section className="clip-angle relative min-h-[720px] overflow-hidden bg-ink text-white">
-        <img src={images.hero} alt="Autolec agricultural machine in the field" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={images.hero} alt="Autolec agricultural machine in the field" fetchPriority="high" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-linear-to-r from-ink via-ink/75 to-ink/20" />
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 pb-32 pt-20 md:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
-            <p className="animate-fade-in-down mb-5 inline-flex rounded-md bg-autolec-green px-4 py-2 text-sm font-extrabold uppercase tracking-normal">
+            <p className="animate-fade-in-down mb-5 inline-flex rounded-md bg-autolec-green px-4 py-2 text-sm font-extrabold uppercase tracking-wide">
               We strive for excellence
             </p>
-            <h1 className="animate-fade-in-up font-display text-5xl leading-none text-balance md:text-7xl">
+            <h1 className="animate-fade-in-up font-display text-4xl leading-[1.05] text-balance sm:text-5xl md:text-7xl md:leading-none">
               Agricultural machinery built, repaired and maintained for hard working sites.
             </h1>
             <p className="animate-fade-in-up delay-200 mt-7 max-w-2xl text-lg leading-8 text-white/80">
@@ -43,7 +49,7 @@ export function Home() {
               {stats.map((stat, i) => (
                 <div key={stat.label} className="animate-scale-in rounded-md bg-white p-4 text-ink" style={{ animationDelay: `${400 + i * 100}ms` }}>
                   <p className="font-display text-2xl">{stat.value}</p>
-                  <p className="mt-1 text-xs font-bold uppercase tracking-normal text-soil/60">{stat.label}</p>
+                  <p className="mt-1 text-xs font-bold uppercase tracking-wide text-soil/60">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -139,10 +145,10 @@ export function Home() {
         <div className="mx-auto grid max-w-7xl gap-10 px-4 md:px-6 lg:grid-cols-2 lg:items-center">
           <div className="grid grid-cols-2 gap-4">
             <Reveal direction="left">
-              <img src={images.machines} alt="De-bagger machinery" className="h-80 w-full rounded-md object-cover" />
+              <img src={images.machines} alt="De-bagger machinery" loading="lazy" decoding="async" className="h-80 w-full rounded-md object-cover" />
             </Reveal>
             <Reveal direction="left" delay={200}>
-              <img src={images.workshop} alt="Autolec workshop welding" className="mt-10 h-80 w-full rounded-md object-cover" />
+              <img src={images.workshop} alt="Autolec workshop welding" loading="lazy" decoding="async" className="mt-10 h-80 w-full rounded-md object-cover" />
             </Reveal>
           </div>
           <div>
@@ -175,33 +181,37 @@ export function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Google rating */}
       <section className="bg-ink py-20 text-white">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
+        <div className="mx-auto max-w-3xl px-4 text-center md:px-6">
           <Reveal>
-            <SectionHeading
-              align="center"
-              eyebrow="What our clients say"
-              title="Trusted by farmers and operators across South Africa."
-              className="[&_h2]:text-white [&_p]:text-white/60"
-            />
+            <p className="mb-3 text-sm font-extrabold uppercase tracking-wide text-autolec-green">Rated on Google</p>
+            <div className="flex items-center justify-center gap-3">
+              <span className="font-display text-6xl leading-none">{reviews.rating.toFixed(1)}</span>
+              <span className="flex" aria-label={`${reviews.rating} out of 5 stars`}>
+                {[0, 1, 2, 3, 4].map((n) => (
+                  <Star
+                    key={n}
+                    size={28}
+                    className={n < Math.round(reviews.rating) ? "fill-amber-400 text-amber-400" : "fill-white/15 text-white/15"}
+                  />
+                ))}
+              </span>
+            </div>
+            <p className="mt-4 text-white/70">
+              Based on {reviews.count} verified Google reviews — including{" "}
+              {reviews.authors.map((a, i) => (
+                <span key={a.name}>
+                  {i > 0 && " and "}
+                  <span className="font-semibold text-white">{a.name}</span>
+                  {a.localGuide && <span className="text-white/50"> (Local Guide)</span>}
+                </span>
+              ))}.
+            </p>
+            <Button asChild className="mt-8">
+              <a href={reviews.url} target="_blank" rel="noreferrer">Read our Google reviews</a>
+            </Button>
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <Reveal key={t.author} delay={i * 150}>
-                <div className="rounded-md border border-white/10 bg-white/5 p-6 backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="mb-4 h-8 w-8 text-autolec-green/60">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z" />
-                  </svg>
-                  <p className="text-sm leading-7 text-white/80">{t.quote}</p>
-                  <div className="mt-5 border-t border-white/10 pt-4">
-                    <p className="text-sm font-bold">{t.author}</p>
-                    <p className="text-xs text-white/50">{t.sector}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
