@@ -142,23 +142,18 @@ export const industries = [
   },
 ];
 
-export const testimonials = [
-  {
-    quote: "Gideon and his team repaired our de-bagger in the middle of season when time was critical. Professional, fast and reliable.",
-    author: "Agricultural Operations Manager",
-    sector: "Sugar Cane",
-  },
-  {
-    quote: "We've been using Autolec's baggers for years. The build quality is excellent and parts are easy to source locally.",
-    author: "Farm Manager",
-    sector: "Grain & Feed",
-  },
-  {
-    quote: "Their field experience shows in every machine they build. They understand what actually works on site, not just on paper.",
-    author: "Site Foreman",
-    sector: "Agricultural Construction",
-  },
-];
+// Verified Google Business rating. Quote text is intentionally omitted because
+// the public reviews are photo/star ratings without written testimonials —
+// add `quote` fields here only if real review text becomes available.
+export const reviews = {
+  rating: 4.5,
+  count: 2,
+  url: "https://maps.google.com/?cid=114585520739980332",
+  authors: [
+    { name: "John van Eeden", localGuide: false },
+    { name: "Owen Knoesen", localGuide: true },
+  ],
+};
 
 export const faqs = [
   {

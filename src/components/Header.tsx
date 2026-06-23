@@ -31,7 +31,7 @@ export function Header() {
           <img src={images.logo} alt="Autolec Assets" className="h-12 w-12 object-contain" />
           <div>
             <p className="font-display text-lg leading-none text-ink">Autolec Assets</p>
-            <p className="text-xs font-bold uppercase tracking-normal text-autolec-green">(Pty) LTD</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-autolec-green">(Pty) LTD</p>
           </div>
         </Link>
 
@@ -41,7 +41,7 @@ export function Header() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `text-sm font-bold uppercase tracking-normal transition hover:text-autolec-green ${
+                `text-sm font-bold uppercase tracking-wide transition hover:text-autolec-green ${
                   isActive ? "text-autolec-green" : "text-soil"
                 }`
               }
@@ -60,6 +60,8 @@ export function Header() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className="inline-flex h-10 w-10 items-center justify-center rounded-md text-ink transition hover:bg-field lg:hidden"
             aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -67,7 +69,7 @@ export function Header() {
       </div>
 
       {mobileOpen && (
-        <nav className="border-t border-ink/10 px-4 py-3 lg:hidden">
+        <nav id="mobile-nav" className="border-t border-ink/10 px-4 py-3 lg:hidden">
           <div className="grid gap-1">
             {navItems.map((item) => (
               <NavLink
@@ -75,7 +77,7 @@ export function Header() {
                 to={item.to}
                 onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
-                  `rounded-md px-4 py-3 text-sm font-extrabold uppercase tracking-normal transition ${
+                  `rounded-md px-4 py-3 text-sm font-extrabold uppercase tracking-wide transition ${
                     isActive ? "bg-autolec-green text-white" : "text-soil hover:bg-field"
                   }`
                 }
@@ -86,7 +88,7 @@ export function Header() {
             <Link
               to="/contact"
               onClick={() => setMobileOpen(false)}
-              className="mt-2 rounded-md bg-autolec-green px-4 py-3 text-center text-sm font-extrabold uppercase tracking-normal text-white"
+              className="mt-2 rounded-md bg-autolec-green px-4 py-3 text-center text-sm font-extrabold uppercase tracking-wide text-white"
             >
               Get a Quote
             </Link>
