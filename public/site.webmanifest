@@ -1,0 +1,14 @@
+{
+  "name": "Autolec Assets (Pty) Ltd",
+  "short_name": "Autolec",
+  "description": "Agricultural machinery repair, maintenance and manufacturing in Middelburg, South Africa.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b7253",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/favicon.png", "type": "image/png", "sizes": "806x683" }
+  ]
+}

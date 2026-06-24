@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 import { Button } from "../components/ui/Button";
+import { Seo } from "../components/Seo";
 
 export function NotFound() {
   return (
     <section className="grid min-h-[60vh] place-items-center bg-field px-4 text-center">
+      <Seo
+        title="Page Not Found"
+        description="The page you're looking for doesn't exist or has moved."
+        noindex
+      />
       <div>
         <p className="text-sm font-extrabold uppercase tracking-wide text-autolec-green">404</p>
         <h1 className="mt-3 font-display text-4xl">Page not found</h1>

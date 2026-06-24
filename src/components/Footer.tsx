@@ -71,8 +71,14 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 px-4 py-5 text-center text-xs text-white/50">
-        &copy; {new Date().getFullYear()} Autolec Assets (Pty) LTD. All rights reserved.
+      <div className="border-t border-white/10 px-4 py-5 text-xs text-white/50">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 text-center sm:flex-row md:px-2">
+          <p>&copy; {new Date().getFullYear()} Autolec Assets (Pty) LTD. All rights reserved.</p>
+          <div className="flex gap-5">
+            <Link to="/privacy" className="hover:text-white">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-white">Terms of Use</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { Send } from "lucide-react";
 import { Button } from "./ui/Button";
 import { submitEnquiry, isLiveDelivery } from "../lib/enquiry";
@@ -17,6 +18,15 @@ export function ContactForm({ heading = "Request a Quote", compact = false }: Co
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
+
+    // Honeypot: real users never fill this hidden field. If it's populated the
+    // submission is almost certainly a bot — silently pretend it succeeded.
+    if (String(data.get("_gotcha") ?? "").trim() !== "") {
+      setStatus("sent");
+      form.reset();
+      setTimeout(() => setStatus("idle"), 5000);
+      return;
+    }
 
     setStatus("sending");
     try {
@@ -42,6 +52,11 @@ export function ContactForm({ heading = "Request a Quote", compact = false }: Co
   return (
     <form onSubmit={handleSubmit} className={compact ? "" : "rounded-md border border-ink/10 bg-white p-6 shadow-lg shadow-ink/5 md:p-8"}>
       {heading && <h3 className="mb-5 font-display text-2xl text-ink">{heading}</h3>}
+      {/* Honeypot — visually hidden, off-screen and out of the tab order. */}
+      <div className="absolute left-[-9999px]" aria-hidden="true">
+        <label htmlFor="cf-company">Leave this field empty</label>
+        <input id="cf-company" name="_gotcha" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className={compact ? "grid gap-3" : "grid gap-4 sm:grid-cols-2"}>
         <div>
           <label htmlFor="cf-name" className={labelBase}>Your name</label>
@@ -88,6 +103,11 @@ export function ContactForm({ heading = "Request a Quote", compact = false }: Co
           <p className="font-semibold text-autolec-red">Something went wrong. Please call or email us directly.</p>
         )}
       </div>
+
+      <p className="mt-3 text-xs leading-5 text-soil/50">
+        By sending this enquiry you consent to us using your details to respond to you, in line with our{" "}
+        <Link to="/privacy" className="underline hover:text-autolec-green">Privacy Policy</Link>.
+      </p>
     </form>
   );
 }

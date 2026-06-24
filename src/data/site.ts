@@ -98,26 +98,46 @@ export const machines = [
   },
 ];
 
-export const gallery = [
-  ["AAA018", "goosen-sky.jpg"],
-  ["AAA018 & AAB004", "goosen.jpg"],
-  ["AAB004", "goosen bagger.jpg"],
-  ["AAA018 & AAB004 ready to ship", "goosen2.jpg"],
-  ["AAB001", "blue-bagger.jpg"],
-  ["Proud to deliver AAB002 & AAB003", "double-blue2.jpg"],
-  ["OL028 Rebuild", "debagger-long.jpg"],
-  ["Bagger", "bagger-man2.jpg"],
-  ["Simple brake system", "bagger-man3.jpg"],
-  ["Almost ready to be painted", "bagger-man4.jpg"],
-  ["Outloader", "ol-before2.jpg"],
-  ["AAA014", "aaa014-2.jpg"],
-  ["Hydraulic motor on flite", "flite.jpg"],
-  ["De-bagger AAA013", "aaa013.jpg"],
-  ["Workshop welding", "gideon-weld.jpg"],
-  ["Machine frame", "frame-man1.jpg"],
-  ["Green outloader", "green-outloader.jpg"],
-  ["Ready for work", "truckload.jpeg"],
-].map(([title, file]) => ({ title, image: galleryAsset(file) }));
+export type GalleryCategory = "Baggers" | "De-baggers" | "Outloaders" | "In the Workshop";
+
+export const galleryCategories: GalleryCategory[] = ["Baggers", "De-baggers", "Outloaders", "In the Workshop"];
+
+type GallerySource = {
+  title: string;
+  file: string;
+  category: GalleryCategory;
+  description: string;
+  width: number;
+  height: number;
+};
+
+const gallerySource: GallerySource[] = [
+  { title: "Bagger AAA018", file: "goosen-sky.jpg", category: "Baggers", description: "A completed AAA018 bagger working in the field, running off a standard 540RPM PTO drive.", width: 1920, height: 3950 },
+  { title: "Baggers AAA018 & AAB004", file: "goosen.jpg", category: "Baggers", description: "Two finished baggers built for 150–200 t/h loading, ready for handover.", width: 1920, height: 3950 },
+  { title: "Bagger AAB004", file: "goosen-bagger.jpg", category: "Baggers", description: "The AAB004 bagger, designed around just two easily accessible bearings for simpler maintenance.", width: 1920, height: 3950 },
+  { title: "AAA018 & AAB004 ready to ship", file: "goosen2.jpg", category: "Baggers", description: "A pair of baggers loaded and ready to leave the workshop for delivery.", width: 1920, height: 933 },
+  { title: "Bagger AAB001", file: "blue-bagger.jpg", category: "Baggers", description: "The AAB001 bagger finished in blue, with brakes that engage individually for full control.", width: 622, height: 1280 },
+  { title: "Baggers AAB002 & AAB003", file: "double-blue2.jpg", category: "Baggers", description: "Proud to deliver a matched pair of baggers built to the same high-throughput spec.", width: 640, height: 1316 },
+  { title: "Bagger AAA014", file: "aaa014-2.jpg", category: "Baggers", description: "The AAA014 bagger, built on a 400mm seamless pipe frame.", width: 1920, height: 933 },
+  { title: "Loaded and ready for work", file: "truckload.jpeg", category: "Baggers", description: "Machines loaded on the truck, ready for delivery to sites across South Africa.", width: 1280, height: 960 },
+  { title: "De-bagger OL028 (rebuild)", file: "debagger-long.jpg", category: "De-baggers", description: "A rebuilt de-bagger returned to full working order on the workshop floor.", width: 1920, height: 3950 },
+  { title: "De-bagger AAA013", file: "aaa013.jpg", category: "De-baggers", description: "The AAA013 de-bagger, tested at 160–200 tonnes per hour in optimal conditions.", width: 1920, height: 933 },
+  { title: "Outloader", file: "ol-before2.jpg", category: "Outloaders", description: "An outloader in the Autolec workshop for repair and refit.", width: 1920, height: 3950 },
+  { title: "Green outloader", file: "green-outloader.jpg", category: "Outloaders", description: "A completed outloader finished in green and ready for site.", width: 1920, height: 933 },
+  { title: "Bagger build in progress", file: "bagger-man2.jpg", category: "In the Workshop", description: "A bagger taking shape on the workshop floor before paint.", width: 1920, height: 3950 },
+  { title: "Simple, serviceable brake system", file: "bagger-man3.jpg", category: "In the Workshop", description: "The closed hydraulic brake system, kept simple so each brake can be engaged on its own.", width: 1920, height: 3950 },
+  { title: "Almost ready for paint", file: "bagger-man4.jpg", category: "In the Workshop", description: "A bagger nearing completion, prepped and ready for its finishing coat.", width: 1920, height: 3950 },
+  { title: "Hydraulic motor on flight", file: "flite.jpg", category: "In the Workshop", description: "A hydraulic drive motor mounted to the flight conveyor during assembly.", width: 1920, height: 933 },
+  { title: "Workshop welding", file: "gideon-weld.jpg", category: "In the Workshop", description: "Fabrication and welding work in the Autolec workshop.", width: 1920, height: 2560 },
+  { title: "Machine frame fabrication", file: "frame-man1.jpg", category: "In the Workshop", description: "A machine frame under construction, built from standard, readily available steel.", width: 1920, height: 3950 },
+];
+
+export const gallery = gallerySource.map(({ file, ...rest }) => ({
+  ...rest,
+  image: galleryAsset(file),
+}));
+
+export type GalleryItem = (typeof gallery)[number];
 
 export const industries = [
   {

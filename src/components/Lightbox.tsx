@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
-type GalleryItem = { title: string; image: string };
+type GalleryItem = { title: string; image: string; description?: string };
 
 type LightboxProps = {
   items: GalleryItem[];
@@ -12,25 +12,56 @@ type LightboxProps = {
 
 export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
   const item = items[index];
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+      if (e.key === "Tab") {
+        const focusables = dialogRef.current?.querySelectorAll<HTMLElement>("button");
+        if (!focusables || focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    }
+
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+      previouslyFocused?.focus?.();
+    };
+    // Focus capture/restore must run once per mount, not on every navigation.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") onNavigate((index + 1) % items.length);
       if (e.key === "ArrowLeft") onNavigate((index - 1 + items.length) % items.length);
     }
     window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [index, items.length, onClose, onNavigate]);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [index, items.length, onNavigate]);
 
   if (!item) return null;
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
       aria-modal="true"
       aria-label={item.title}
@@ -38,6 +69,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
       onClick={onClose}
     >
       <button
+        ref={closeRef}
         type="button"
         aria-label="Close"
         onClick={onClose}
@@ -56,9 +88,12 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
       </button>
 
       <figure className="max-h-[88vh] max-w-5xl" onClick={(e) => e.stopPropagation()}>
-        <img src={item.image} alt={item.title} className="max-h-[80vh] w-auto rounded-md object-contain" />
-        <figcaption className="mt-3 text-center text-sm font-semibold text-white/80">
-          {item.title} <span className="text-white/40">({index + 1}/{items.length})</span>
+        <img src={item.image} alt={item.title} className="mx-auto max-h-[78vh] w-auto rounded-md object-contain" />
+        <figcaption className="mx-auto mt-3 max-w-2xl text-center">
+          <p className="text-sm font-semibold text-white">
+            {item.title} <span className="text-white/60">({index + 1}/{items.length})</span>
+          </p>
+          {item.description && <p className="mt-1 text-sm leading-6 text-white/70">{item.description}</p>}
         </figcaption>
       </figure>
 
